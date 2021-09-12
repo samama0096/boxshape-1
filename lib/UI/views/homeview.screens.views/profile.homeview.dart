@@ -41,6 +41,11 @@ class _ProfileviewState extends State<Profileview> {
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
     return Scaffold(
+      drawer: Drawer(),
+      appBar: AppBar(
+        backgroundColor: Colors.black87,
+        title: Text("My Profile"),
+      ),
       backgroundColor: My_Colors.backgroundScaffoldColor,
       body: SafeArea(
         child: Container(
