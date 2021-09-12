@@ -1,46 +1,51 @@
-import 'package:boxshape/UI/components/ui.colors.dart';
+import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/accesories.feed.dart';
+import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/dressing.feed.dart';
+import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/electronics.feed.dart';
 import 'package:flutter/material.dart';
 
-class Feedview extends StatefulWidget {
-  Feedview({Key? key}) : super(key: key);
+class FeedView extends StatefulWidget {
+  FeedView({Key? key}) : super(key: key);
 
   @override
-  _FeedviewState createState() => _FeedviewState();
+  _FeedViewState createState() => _FeedViewState();
 }
 
-class _FeedviewState extends State<Feedview>
-    with SingleTickerProviderStateMixin {
-  TabController? _tabCont;
-  @override
-  void initState() {
-    super.initState();
-    _tabCont = TabController(length: 3, vsync: this);
-  }
-
+class _FeedViewState extends State<FeedView> {
   @override
   Widget build(BuildContext context) {
-    Size s = MediaQuery.of(context).size;
-    return Scaffold(
-      backgroundColor: My_Colors.backgroundScaffoldColor,
-      body: SafeArea(
-        child: Center(
-          child: Container(
-            height: s.height * 0.95,
-            width: s.width * 0.95,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.start,
-              children: [],
+    return DefaultTabController(
+      length: 3,
+      child: Scaffold(
+          drawer: Drawer(),
+          body: NestedScrollView(
+            headerSliverBuilder:
+                (BuildContext context, bool innerBoxIsScrolled) {
+              return <Widget>[
+                new SliverAppBar(
+                  actions: [Icon(Icons.search_sharp)],
+                  backgroundColor: Colors.black87,
+                  title: Text('Explore here!'),
+                  pinned: true,
+                  floating: true,
+                  bottom: TabBar(
+                    isScrollable: true,
+                    tabs: [
+                      Tab(child: Text('Dressing')),
+                      Tab(child: Text('Electronics')),
+                      Tab(child: Text('Accesories')),
+                    ],
+                  ),
+                ),
+              ];
+            },
+            body: TabBarView(
+              children: <Widget>[
+                DressingFeed(),
+                ElectronicsFeed(),
+                AccesoriesFeed()
+              ],
             ),
-          ),
-        ),
-      ),
+          )),
     );
   }
-
-  List<String> images = [
-    "lib/assets/homeassets/new.jpg",
-    "lib/assets/homeassets/offseason.jpg"
-        "lib/assets/homeassets/discount.jpg"
-  ];
 }

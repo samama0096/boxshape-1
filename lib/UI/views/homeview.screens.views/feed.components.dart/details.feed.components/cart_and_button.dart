@@ -1,8 +1,6 @@
-
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-import '../../../constants.dart';
+import 'constants.dart';
 
 class CartNdButton extends StatelessWidget {
   const CartNdButton({
@@ -19,13 +17,19 @@ class CartNdButton extends StatelessWidget {
           height: 50,
           width: 58,
           decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(18),
-              border: Border.all(color: Colors.black)),
-          child: IconButton(
-              onPressed: () {},
-              icon: SvgPicture.asset(
-                  "lib/assets/icons/addd_to_cart.svg",
-                  color: Colors.black)),
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(18),
+          ),
+          child: Center(
+            child: IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: Icon(
+                  Icons.arrow_back_ios,
+                  color: Colors.black87,
+                )),
+          ),
         ),
         Expanded(
           child: SizedBox(
@@ -33,10 +37,8 @@ class CartNdButton extends StatelessWidget {
             child: ElevatedButton(
                 style: ButtonStyle(
                   //backgroundColor: Colors.black,
-                  backgroundColor:
-                      MaterialStateProperty.all(Colors.black),
-                  shape: MaterialStateProperty.all<
-                          RoundedRectangleBorder>(
+                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                   )),

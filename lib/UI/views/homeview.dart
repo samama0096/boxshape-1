@@ -1,7 +1,8 @@
 import 'package:boxshape/UI/components/ui.colors.dart';
-import 'package:boxshape/UI/views/home/ui/home.dart';
+
 import 'package:boxshape/UI/views/homeview.screens.views/cart.homeview.dart';
 import 'package:boxshape/UI/views/homeview.screens.views/feed.homeview.dart';
+
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:ionicons/ionicons.dart';
@@ -71,5 +72,5 @@ class _HomeviewState extends State<Homeview> {
         body: _children[_selectedIndex]);
   }
 
-  List<Widget> _children = [HomeScren(), Cartview(), Profileview()];
+  List<Widget> _children = [FeedView(), Cartview(), Profileview()];
 }
