@@ -17,10 +17,14 @@ class ImageViewer extends StatelessWidget {
         backgroundColor: Colors.black87,
         title: Text(productdata.name),
       ),
-      body: PinchZoom(
-        child: Image.network(productdata.imageurls![0]),
-        resetDuration: const Duration(milliseconds: 100),
-        maxScale: 2.5,
+      body: Center(
+        child: Container(
+          child: PinchZoom(
+            child: Image.network(productdata.imageurls![0]),
+            resetDuration: const Duration(milliseconds: 100),
+            maxScale: 2.5,
+          ),
+        ),
       ),
     ));
   }
