@@ -30,7 +30,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   firebase_core: any
   cloud_firestore: any
-   
+  pinch_zoom: ^1.0.0
   firebase_auth: any
   email_validator: any
   flutter_spinkit: any

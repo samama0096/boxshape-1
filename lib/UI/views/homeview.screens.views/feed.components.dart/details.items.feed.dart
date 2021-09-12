@@ -1,6 +1,7 @@
 import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/details.feed.components/cart_and_button.dart';
 import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/details.feed.components/count_with_fav.dart';
 import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/details.feed.components/descritption.dart';
+import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/details.feed.components/imageview.item.dart';
 import 'package:boxshape/UI/views/homeview.screens.views/feed.components.dart/details.feed.components/size.dart';
 import 'package:flutter/material.dart';
 
@@ -27,12 +28,21 @@ class _FeedItemsDetailsState extends State<FeedItemsDetails> {
           width: s.width,
           child: Stack(
             children: [
-              Container(
-                height: s.height * 0.55,
-                width: s.width,
-                child: Image.network(
-                  widget.productdata.imageurls![0],
-                  fit: BoxFit.cover,
+              GestureDetector(
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              ImageViewer(productdata: widget.productdata)));
+                },
+                child: Container(
+                  height: s.height * 0.55,
+                  width: s.width,
+                  child: Image.network(
+                    widget.productdata.imageurls![0],
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
               Align(
