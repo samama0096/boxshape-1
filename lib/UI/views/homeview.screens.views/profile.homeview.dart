@@ -28,6 +28,7 @@ class _ProfileviewState extends State<Profileview> {
       contact = savedUserData!.contact;
       fullname = savedUserData!.fullname;
     });
+    print(savedUserData);
   }
 
   @override
@@ -78,12 +79,16 @@ class _ProfileviewState extends State<Profileview> {
                         CircleAvatar(
                           backgroundColor: My_Colors.backgroundScaffoldColor,
                           child: Center(
-                            child: Text(
-                              "!",
-                              style: TextStyle(
-                                  color: Colors.white.withOpacity(0.5),
-                                  fontSize: 100),
+                            child: Icon(
+                              Icons.person,
+                              size: 100,
                             ),
+                            //Text(
+                            // "!",
+                            // style: TextStyle(
+                            //     color: Colors.white.withOpacity(0.5),
+                            //     fontSize: 100),
+                            // ),
                           ),
                           radius: 70,
                         ),

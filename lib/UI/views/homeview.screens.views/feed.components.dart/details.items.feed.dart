@@ -10,9 +10,10 @@ import 'package:boxshape/Helpers/models/product.model.dart';
 class FeedItemsDetails extends StatefulWidget {
   FeedItemsDetails({
     Key? key,
-    required this.productdata,
+    required this.productdata, required this.docid,
   }) : super(key: key);
   final Productdata productdata;
+  final String docid;
   @override
   _FeedItemsDetailsState createState() => _FeedItemsDetailsState();
 }
@@ -67,7 +68,7 @@ class _FeedItemsDetailsState extends State<FeedItemsDetails> {
                       ColorAndSize(),
                       Description(product: widget.productdata),
                       CountNdFav(),
-                      CartNdButton(),
+                      CartNdButton(product: widget.productdata, curid: widget.docid),
                     ],
                   ),
                 ),

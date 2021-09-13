@@ -28,12 +28,14 @@ class _ElectronicsFeedState extends State<ElectronicsFeed> {
                 .snapshots(),
             builder: (context, snapshot) {
               List<Productdata> prodlist = <Productdata>[];
+              List<String> idlist = <String>[];
               if (snapshot.hasData) {
                 snapshot.data!.docs
                   ..forEach((DocumentSnapshot doc) {
                     Productdata pd = Productdata.fromDocument(doc);
                     if (pd.tags == 1) {
                       prodlist.add(pd);
+                      idlist.add(doc.id);
                     } else {}
                   });
                 return GridView.builder(
@@ -49,7 +51,7 @@ class _ElectronicsFeedState extends State<ElectronicsFeed> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FeedItemsDetails(
-                                        productdata: prodlist[index])));
+                                        productdata: prodlist[index], docid:idlist[index])));
                           },
                           child: Card(
                             elevation: 10,
