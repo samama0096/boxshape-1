@@ -69,8 +69,8 @@ class _LoginviewState extends State<Loginview> {
                 padding: const EdgeInsets.only(
                     top: 40, bottom: 15, left: 10, right: 10),
                 child: isLoading
-                    ? SpinKitPulse(
-                        size: 300,
+                    ? SpinKitWave(
+                        size: 200,
                         color: My_Colors.primarybuttonColor,
                       )
                     : Form(
@@ -273,22 +273,24 @@ class _LoginviewState extends State<Loginview> {
                     ));
                   }
                 },
-                child: Container(
-                  height: 50,
-                  width: s.width * 0.3,
-                  child: Center(
-                    child: Text(
-                      "LOG IN",
-                      style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                          color: My_Colors.backgroundScaffoldColor),
-                    ),
-                  ),
-                  decoration: BoxDecoration(
-                      color: My_Colors.primarybuttonColor,
-                      borderRadius: BorderRadius.circular(24)),
-                ),
+                child: isLoading
+                    ? Container()
+                    : Container(
+                        height: 50,
+                        width: s.width * 0.3,
+                        child: Center(
+                          child: Text(
+                            "LOG IN",
+                            style: TextStyle(
+                                fontWeight: FontWeight.w600,
+                                fontSize: 18,
+                                color: My_Colors.backgroundScaffoldColor),
+                          ),
+                        ),
+                        decoration: BoxDecoration(
+                            color: My_Colors.primarybuttonColor,
+                            borderRadius: BorderRadius.circular(24)),
+                      ),
               ),
             ),
           ),

@@ -1,11 +1,42 @@
+import 'package:boxshape/Firebase/services/cart.firebase.dart';
+import 'package:boxshape/Helpers/models/product.model.dart';
+import 'package:boxshape/Helpers/models/userdata.model.dart';
+import 'package:boxshape/Helpers/preferences/login.user.prefs.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
 
-class CartNdButton extends StatelessWidget {
-  const CartNdButton({
+class CartNdButton extends StatefulWidget {
+  CartNdButton({
     Key? key,
+    required this.product, required this.curid,
   }) : super(key: key);
+  final Productdata product;
+  final String curid;
+
+  @override
+  State<CartNdButton> createState() => _CartNdButtonState();
+}
+
+class _CartNdButtonState extends State<CartNdButton> {
+  Userdata? savedUserData;
+  // CartUserData? addtocart;
+  String? username;
+  getCurUserData() async {
+    savedUserData = await LoginUserDataPrefs.getSavedLoginData();
+
+    setState(() {
+      username = savedUserData!.username;
+    });
+    print(savedUserData);
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    getCurUserData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +74,10 @@ class CartNdButton extends StatelessWidget {
                     borderRadius: BorderRadius.circular(18.0),
                   )),
                 ),
-                onPressed: () {},
+                onPressed: () async {
+                  await CartUserData.addtousercart(
+                      widget.curid, username);
+                },
                 child: Text("BUY NOW".toUpperCase(),
                     style: TextStyle(
                       fontSize: 17,
