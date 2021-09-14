@@ -4,8 +4,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 class AccesoriesFeed extends StatefulWidget {
-  AccesoriesFeed({Key? key}) : super(key: key);
-
+  AccesoriesFeed({Key? key, this.username}) : super(key: key);
+  final username;
   @override
   _AccesoriesFeedState createState() => _AccesoriesFeedState();
 }
@@ -49,8 +49,10 @@ class _AccesoriesFeedState extends State<AccesoriesFeed> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FeedItemsDetails(
-                                        productdata: prodlist[index],
-                                        docid: idlist[index])));
+                                          productdata: prodlist[index],
+                                          docid: idlist[index],
+                                          username: widget.username,
+                                        )));
                           },
                           child: Card(
                             elevation: 10,

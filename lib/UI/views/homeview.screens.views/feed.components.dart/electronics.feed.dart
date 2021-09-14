@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'details.items.feed.dart';
 
 class ElectronicsFeed extends StatefulWidget {
-  ElectronicsFeed({Key? key}) : super(key: key);
-
+  ElectronicsFeed({Key? key, required this.username}) : super(key: key);
+  final username;
   @override
   _ElectronicsFeedState createState() => _ElectronicsFeedState();
 }
@@ -51,7 +51,10 @@ class _ElectronicsFeedState extends State<ElectronicsFeed> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FeedItemsDetails(
-                                        productdata: prodlist[index], docid:idlist[index])));
+                                          productdata: prodlist[index],
+                                          docid: idlist[index],
+                                          username: widget.username,
+                                        )));
                           },
                           child: Card(
                             elevation: 10,

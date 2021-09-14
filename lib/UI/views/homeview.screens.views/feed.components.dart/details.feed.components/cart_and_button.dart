@@ -2,6 +2,7 @@ import 'package:boxshape/Firebase/services/cart.firebase.dart';
 import 'package:boxshape/Helpers/models/product.model.dart';
 import 'package:boxshape/Helpers/models/userdata.model.dart';
 import 'package:boxshape/Helpers/preferences/login.user.prefs.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -9,33 +10,43 @@ import 'constants.dart';
 class CartNdButton extends StatefulWidget {
   CartNdButton({
     Key? key,
-    required this.product, required this.curid,
+    required this.product,
+    required this.curid,
+    required this.username,
   }) : super(key: key);
   final Productdata product;
   final String curid;
+  final username;
 
   @override
   State<CartNdButton> createState() => _CartNdButtonState();
 }
 
 class _CartNdButtonState extends State<CartNdButton> {
+  bool isPressed = false;
+  bool alreadyAdded = false;
   Userdata? savedUserData;
   // CartUserData? addtocart;
-  String? username;
-  getCurUserData() async {
-    savedUserData = await LoginUserDataPrefs.getSavedLoginData();
 
-    setState(() {
-      username = savedUserData!.username;
+  Future checkItemInCart() async {
+    await FirebaseFirestore.instance
+        .collection('cart')
+        .doc(widget.username)
+        .get()
+        .then((value) {
+      List<String> productsList = (List.from(value.data()!['cartproduct']));
+      setState(() {
+        isPressed = productsList.contains(widget.curid);
+      });
     });
-    print(savedUserData);
   }
 
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    getCurUserData();
+
+    checkItemInCart();
   }
 
   @override
@@ -68,22 +79,43 @@ class _CartNdButtonState extends State<CartNdButton> {
             child: ElevatedButton(
                 style: ButtonStyle(
                   //backgroundColor: Colors.black,
-                  backgroundColor: MaterialStateProperty.all(Colors.black),
+                  backgroundColor: isPressed
+                      ? MaterialStateProperty.all(Colors.white)
+                      : MaterialStateProperty.all(Colors.black),
                   shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                       RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(18.0),
                   )),
                 ),
                 onPressed: () async {
-                  await CartUserData.addtousercart(
-                      widget.curid, username);
+                  if (!isPressed) {
+                    await CartUserData.appendToArray(
+                        widget.username!, widget.curid);
+                    setState(() {
+                      isPressed = true;
+                    });
+                  } else if (isPressed) {
+                    await CartUserData.removeFromArray(
+                        widget.username!, widget.curid);
+                    setState(() {
+                      isPressed = false;
+                    });
+                  }
                 },
-                child: Text("BUY NOW".toUpperCase(),
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                    ))),
+                child: isPressed
+                    ? Text("Remove from cart".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w700,
+                          fontStyle: FontStyle.italic,
+                          color: Colors.black,
+                        ))
+                    : Text("Add to cart".toUpperCase(),
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                        ))),
           ),
         )
       ]),

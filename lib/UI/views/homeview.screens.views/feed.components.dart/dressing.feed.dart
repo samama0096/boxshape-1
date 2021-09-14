@@ -6,8 +6,8 @@ import 'package:flutter/material.dart';
 import 'details.items.feed.dart';
 
 class DressingFeed extends StatefulWidget {
-  DressingFeed({Key? key}) : super(key: key);
-
+  DressingFeed({Key? key, required this.username}) : super(key: key);
+  final username;
   @override
   _DressingFeedState createState() => _DressingFeedState();
 }
@@ -51,7 +51,10 @@ class _DressingFeedState extends State<DressingFeed> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => FeedItemsDetails(
-                                        productdata: prodlist[index], docid:idlist[index])));
+                                          productdata: prodlist[index],
+                                          docid: idlist[index],
+                                          username: widget.username,
+                                        )));
                           },
                           child: Card(
                             elevation: 10,

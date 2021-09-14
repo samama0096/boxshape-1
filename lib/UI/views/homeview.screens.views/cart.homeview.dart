@@ -1,4 +1,3 @@
-import 'package:boxshape/UI/components/ui.colors.dart';
 import 'package:flutter/material.dart';
 
 class Cartview extends StatefulWidget {
