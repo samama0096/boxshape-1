@@ -48,8 +48,7 @@ class CartUserData {
     final _firestore = FirebaseFirestore.instance.collection('cart');
     DocumentSnapshot docSnap = await _firestore.doc(username).get();
     List<String> cartdata = List.from(docSnap['cartproduct']);
-    print(username);
-    print(cartdata);
+
     return cartdata;
   }
 
@@ -60,8 +59,8 @@ class CartUserData {
       DocumentSnapshot samdocSnap = await _sam.doc(id).get();
       Productdata pd = Productdata.fromDocument(samdocSnap);
       cartdata.add(pd);
-      print(pd.name);
     });
+    print(cartdata.length);
     return cartdata;
   }
 }
