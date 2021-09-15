@@ -1,3 +1,4 @@
+import 'package:boxshape/Helpers/models/product.model.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class CartUserData {
@@ -41,5 +42,26 @@ class CartUserData {
     _firestore.collection('cart').doc(username).update({
       'cartproduct': FieldValue.arrayRemove([prod_Id]),
     });
+  }
+
+  static Future getcartfirebase(String? username) async {
+    final _firestore = FirebaseFirestore.instance.collection('cart');
+    DocumentSnapshot docSnap = await _firestore.doc(username).get();
+    List<String> cartdata = List.from(docSnap['cartproduct']);
+    print(username);
+    print(cartdata);
+    return cartdata;
+  }
+
+  static Future showcartfirebase(List<String> proddocid) async {
+    final _sam = FirebaseFirestore.instance.collection("availableProducts");
+    List<Productdata> cartdata = <Productdata>[];
+    proddocid.forEach((id) async {
+      DocumentSnapshot samdocSnap = await _sam.doc(id).get();
+      Productdata pd = Productdata.fromDocument(samdocSnap);
+      cartdata.add(pd);
+      print(pd.name);
+    });
+    return cartdata;
   }
 }
