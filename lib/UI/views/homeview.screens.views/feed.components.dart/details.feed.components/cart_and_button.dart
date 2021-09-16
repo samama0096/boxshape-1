@@ -2,6 +2,7 @@ import 'package:boxshape/Firebase/services/cart.firebase.dart';
 import 'package:boxshape/Helpers/models/product.model.dart';
 import 'package:boxshape/Helpers/models/userdata.model.dart';
 import 'package:boxshape/Helpers/preferences/login.user.prefs.dart';
+import 'package:boxshape/UI/views/homeview.screens.views/cart.homeview.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
@@ -65,7 +66,10 @@ class _CartNdButtonState extends State<CartNdButton> {
           child: Center(
             child: IconButton(
                 onPressed: () {
-                  Navigator.pop(context);
+                  Navigator.pushAndRemoveUntil(
+                      context,
+                      MaterialPageRoute(builder: (_) => Cartview()),
+                      (route) => false);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios,

@@ -5,6 +5,8 @@ import 'package:boxshape/Helpers/preferences/login.user.prefs.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 
+import 'feed.components.dart/details.items.feed.dart';
+
 class Cartview extends StatefulWidget {
   Cartview({Key? key}) : super(key: key);
 
@@ -64,6 +66,7 @@ class _CartviewState extends State<Cartview> {
                   .snapshots(),
               builder: (_, snapshot) {
                 List<Productdata> cartproduct_dataList = <Productdata>[];
+                List<String> docid = [];
                 if (snapshot.hasData) {
                   if (cartproductid.length != 0) {
                     snapshot.data!.docs
@@ -71,6 +74,7 @@ class _CartviewState extends State<Cartview> {
                       print(documentSnapshot.id);
                       bool res = cartproductid.contains(documentSnapshot.id);
                       if (res) {
+                        docid.add(documentSnapshot.id);
                         cartproduct_dataList
                             .add(Productdata.fromDocument(documentSnapshot));
                       }
@@ -90,6 +94,17 @@ class _CartviewState extends State<Cartview> {
                                   width: s.width * 0.8,
                                   child: Center(
                                     child: ListTile(
+                                      onTap: () async {
+                                        Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (_) => FeedItemsDetails(
+                                                    productdata:
+                                                        cartproduct_dataList[i],
+                                                    docid: docid[i],
+                                                    username: username)),
+                                            (route) => false);
+                                      },
                                       leading: Container(
                                           height: 100,
                                           width: 60,
