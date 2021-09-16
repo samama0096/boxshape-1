@@ -66,10 +66,7 @@ class _CartNdButtonState extends State<CartNdButton> {
           child: Center(
             child: IconButton(
                 onPressed: () {
-                  Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(builder: (_) => Cartview()),
-                      (route) => false);
+                  Navigator.pop(context);
                 },
                 icon: Icon(
                   Icons.arrow_back_ios,

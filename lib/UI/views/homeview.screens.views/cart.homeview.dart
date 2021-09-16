@@ -30,7 +30,7 @@ class _CartviewState extends State<Cartview> {
     await getCurUserData();
     await CartUserData.getcartfirebase(username!).then((list) async {
       print(list);
-
+      if (!mounted) return;
       setState(() {
         cartproductid = list;
       });
@@ -44,6 +44,12 @@ class _CartviewState extends State<Cartview> {
     // TODO: implement initState
     super.initState();
     getcartid();
+  }
+
+  cleanIdDetails() {
+    setState(() {
+      cartproductid = [];
+    });
   }
 
   @override
@@ -65,13 +71,14 @@ class _CartviewState extends State<Cartview> {
                   .collection('availableProducts')
                   .snapshots(),
               builder: (_, snapshot) {
+                getcartid();
                 List<Productdata> cartproduct_dataList = <Productdata>[];
                 List<String> docid = [];
+
                 if (snapshot.hasData) {
                   if (cartproductid.length != 0) {
                     snapshot.data!.docs
                         .forEach((DocumentSnapshot documentSnapshot) {
-                      print(documentSnapshot.id);
                       bool res = cartproductid.contains(documentSnapshot.id);
                       if (res) {
                         docid.add(documentSnapshot.id);
@@ -95,15 +102,15 @@ class _CartviewState extends State<Cartview> {
                                   child: Center(
                                     child: ListTile(
                                       onTap: () async {
-                                        Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                                builder: (_) => FeedItemsDetails(
-                                                    productdata:
-                                                        cartproduct_dataList[i],
-                                                    docid: docid[i],
-                                                    username: username)),
-                                            (route) => false);
+                                        Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (_) => FeedItemsDetails(
+                                                  productdata:
+                                                      cartproduct_dataList[i],
+                                                  docid: docid[i],
+                                                  username: username)),
+                                        );
                                       },
                                       leading: Container(
                                           height: 100,
@@ -139,5 +146,11 @@ class _CartviewState extends State<Cartview> {
             )),
       ),
     );
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
   }
 }
