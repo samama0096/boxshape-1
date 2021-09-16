@@ -71,7 +71,6 @@ class _CartviewState extends State<Cartview> {
                   .collection('availableProducts')
                   .snapshots(),
               builder: (_, snapshot) {
-                getcartid();
                 List<Productdata> cartproduct_dataList = <Productdata>[];
                 List<String> docid = [];
 
@@ -110,7 +109,9 @@ class _CartviewState extends State<Cartview> {
                                                       cartproduct_dataList[i],
                                                   docid: docid[i],
                                                   username: username)),
-                                        );
+                                        ).then((value) => setState(() {
+                                              cartproductid = [];
+                                            }));
                                       },
                                       leading: Container(
                                           height: 100,
@@ -135,10 +136,12 @@ class _CartviewState extends State<Cartview> {
                             return Text("Loading data please wait!");
                           }),
                     );
-                  } else
-                    return Center(
-                      child: Text("No items in cart!"),
-                    );
+                  } else if (cartproductid.length == 0) {
+                    getcartid();
+                  }
+                  return Center(
+                    child: Text("No items in cart!"),
+                  );
                 }
 
                 return CircularProgressIndicator();
