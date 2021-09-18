@@ -142,7 +142,7 @@ class _CartviewState extends State<Cartview> {
                   return Center(
                     child: Text("No items in cart!"),
                   );
-                }
+                } 
 
                 return CircularProgressIndicator();
               },
