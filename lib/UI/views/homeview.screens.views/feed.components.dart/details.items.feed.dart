@@ -26,62 +26,64 @@ class _FeedItemsDetailsState extends State<FeedItemsDetails> {
   @override
   Widget build(BuildContext context) {
     Size s = MediaQuery.of(context).size;
-    return Scaffold(
-      body: Center(
-        child: Container(
-          height: s.height,
-          width: s.width,
-          child: Stack(
-            children: [
-              GestureDetector(
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) =>
-                              ImageViewer(productdata: widget.productdata)));
-                },
-                child: Container(
-                  height: s.height * 0.55,
-                  width: s.width,
-                  child: Image.network(
-                    widget.productdata.imageurls![0],
-                    fit: BoxFit.cover,
+    return SafeArea(
+      child: Scaffold(
+        body: Center(
+          child: Container(
+            height: s.height,
+            width: s.width,
+            child: Stack(
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) =>
+                                ImageViewer(productdata: widget.productdata)));
+                  },
+                  child: Container(
+                    height: s.height * 0.55,
+                    width: s.width,
+                    child: Image.network(
+                      widget.productdata.imageurls![0],
+                      fit: BoxFit.cover,
+                    ),
                   ),
                 ),
-              ),
-              Align(
-                alignment: Alignment.bottomCenter,
-                child: Container(
-                  height: s.height * 0.6,
-                  width: s.width,
-                  margin: EdgeInsets.only(top: s.height * 0.3),
-                  padding: EdgeInsets.only(
-                      top: s.height * 0.12, left: 10, right: 10),
-                  //height: 500,
-                  decoration: BoxDecoration(
-                      color: Colors.black38,
-                      borderRadius: BorderRadius.only(
-                        topLeft: Radius.circular(25),
-                        topRight: Radius.circular(25),
-                      )),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      ColorAndSize(),
-                      Description(product: widget.productdata),
-                      CountNdFav(),
-                      CartNdButton(
-                        product: widget.productdata,
-                        curid: widget.docid,
-                        username: widget.username,
-                      ),
-                    ],
+                Align(
+                  alignment: Alignment.bottomCenter,
+                  child: Container(
+                    height: s.height * 0.6,
+                    width: s.width,
+                    margin: EdgeInsets.only(top: s.height * 0.3),
+                    padding: EdgeInsets.only(
+                        top: s.height * 0.12, left: 10, right: 10),
+                    //height: 500,
+                    decoration: BoxDecoration(
+                        color: Colors.black38,
+                        borderRadius: BorderRadius.only(
+                          topLeft: Radius.circular(25),
+                          topRight: Radius.circular(25),
+                        )),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        ColorAndSize(),
+                        Description(product: widget.productdata),
+                        CountNdFav(),
+                        CartNdButton(
+                          product: widget.productdata,
+                          curid: widget.docid,
+                          username: widget.username,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),

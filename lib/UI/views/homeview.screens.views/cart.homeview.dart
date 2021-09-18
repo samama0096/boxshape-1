@@ -139,12 +139,15 @@ class _CartviewState extends State<Cartview> {
                   } else if (cartproductid.length == 0) {
                     getcartid();
                   }
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
                   return Center(
-                    child: Text("No items in cart!"),
+                    child: CircularProgressIndicator(),
                   );
-                } 
-
-                return CircularProgressIndicator();
+                }
+                return Center(
+                  child: Text("No Items in Cart :("),
+                );
               },
             )),
       ),
