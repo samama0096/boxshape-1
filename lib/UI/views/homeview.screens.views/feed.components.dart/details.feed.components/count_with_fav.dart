@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 
 import 'cart_counter.dart';
 
@@ -15,16 +14,14 @@ class CountNdFav extends StatelessWidget {
       children: [
         CartCounter(),
         Container(
-            padding: EdgeInsets.all(8),
-            height: 45,
-            width: 45,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              shape: BoxShape.circle,
-            ),
-            child: SvgPicture.asset(
-              "lib/assets/icons/heart.svg",
-            ))
+          padding: EdgeInsets.all(8),
+          height: 45,
+          width: 45,
+          decoration: BoxDecoration(
+            color: Colors.white,
+            shape: BoxShape.circle,
+          ),
+        )
       ],
     );
   }
