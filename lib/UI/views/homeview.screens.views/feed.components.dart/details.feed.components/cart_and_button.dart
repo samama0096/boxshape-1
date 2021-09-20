@@ -1,4 +1,5 @@
 import 'package:boxshape/Firebase/services/cart.firebase.dart';
+import 'package:boxshape/Firebase/services/product.firebase.dart';
 import 'package:boxshape/Helpers/models/product.model.dart';
 import 'package:boxshape/Helpers/models/userdata.model.dart';
 import 'package:boxshape/Helpers/preferences/login.user.prefs.dart';
@@ -92,12 +93,16 @@ class _CartNdButtonState extends State<CartNdButton> {
                   if (!isPressed) {
                     await CartUserData.appendToArray(
                         widget.username!, widget.curid);
+                    int newVal = widget.product.instock! - 1;
+                    await ProductFirebaseService.updatestock(widget.curid, newVal);
                     setState(() {
                       isPressed = true;
                     });
                   } else if (isPressed) {
                     await CartUserData.removeFromArray(
                         widget.username!, widget.curid);
+                    int newVal = widget.product.instock! + 1;
+                    await ProductFirebaseService.updatestock(widget.curid, newVal);
                     setState(() {
                       isPressed = false;
                     });

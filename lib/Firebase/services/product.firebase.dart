@@ -15,4 +15,10 @@ class ProductFirebaseService {
     print(productInfo.length);
     return productInfo;
   }
+
+  static Future updatestock(String pid, int astock) async {
+    final products = FirebaseFirestore.instance.collection("availableProducts");
+
+    await products.doc(pid).update({'instock': astock});
+  }
 }
